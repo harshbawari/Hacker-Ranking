@@ -13,9 +13,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path='/hackers'>
-          <HackerInfo />
-        </Route>
+        <Route path='/hackers/:hackerId' render={(props) => <HackerInfo {...props} />} />
         <Route exact path='/leaderboard'>
           <Leaderboard />
         </Route>
