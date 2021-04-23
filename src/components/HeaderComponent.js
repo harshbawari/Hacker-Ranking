@@ -20,7 +20,7 @@ function Header(props){
     return(
         <div className="">
             <Jumbotron>
-                <div className="container">
+                <div className="container-fluid">
                     <div className="row row-header">
                         <div className="col-12 col-sm-6">
                             <h1>Hacker Ranking System</h1>

@@ -29,6 +29,9 @@ function HackerInfo(props) {
 
                 setHacker(curHacker);
             })
+            .then(() => {
+                setLoading(false);
+            })
             .catch((err) => {
                 console.log('Error in getting hacker list: ', err);
             });
@@ -38,18 +41,63 @@ function HackerInfo(props) {
         <div>
             <Header />
 
-            <div className="col-12 col-md-5 m1">
+            <div className="row align-items-center justify-content-center">
                 {loading 
-                    ? <Card>
-
+                    ? <div>
+                        Loading...
+                        </div>
+                    : hacker ? <div key={hacker.id} className="col-12 col-md-5 m-1">
+                    <Card>
+                        <Link to={`/hackers/${hacker.id}`}>
+                            {//<CardImg width="100%" src={hacker.pic} alt={hacker.name} />
+                            }
+                                <h2>{hacker.name}</h2>
+                        </Link>
+                        <div>
+                            <b>Location:</b> {hacker.location} <b>Education:</b> {hacker.education} <br />
+                            <b>Followers:</b> {hacker.followers} <b>Following:</b> {hacker.following} 
+                        </div>
+                        <div className="">
+                            <h3>Competitive Percentile</h3>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th>Topic</th>
+                                        <th>Percentile</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Data Structures</td>
+                                        <td>{hacker.competitivePercentile.dataStructures}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Algorithms</td>
+                                        <td>{hacker.competitivePercentile.algorithms}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>C++</td>
+                                        <td>{hacker.competitivePercentile.cpp}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Java</td>
+                                        <td>{hacker.competitivePercentile.java}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Python</td>
+                                        <td>{hacker.competitivePercentile.python}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>HTML</td>
+                                        <td>{hacker.competitivePercentile.html}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>JavaScript</td>
+                                        <td>{hacker.competitivePercentile.javascript}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                     </Card>
-                    : hacker ? <Card>
-                    <CardImg top src={hacker.pic} alt={hacker.name} />
-                    <CardBody>
-                        <CardTitle>{hacker.name}</CardTitle>
-                        <CardText>{hacker.name}</CardText>
-                    </CardBody>
-                </Card> : null
+                </div> : null
                 }
             </div>
         </div>

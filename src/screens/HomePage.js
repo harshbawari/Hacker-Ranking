@@ -3,12 +3,14 @@ import axios from 'axios';
 import * as APIURLS from '../API/APIURLS';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import { Link } from 'react-router-dom';
+import '../styles/HomePage.css';
 
 import { } from 'reactstrap';
 
 import Header from '../components/HeaderComponent';
 
 function HomePage(props) {
+    const [loading, setLoading] = useState(true);
     const [hackers, setHackers] = useState([]);
 
     useEffect(() => {
@@ -23,6 +25,7 @@ function HomePage(props) {
                 console.log('List: ', hackers);
                 setHackers(hackers);
             })
+            .then(() => setLoading(false))
             .catch((err) => {
                 console.log('Error in getting hacker list: ', err);
             });
@@ -33,22 +36,66 @@ function HomePage(props) {
             <div key={hacker.id} className="col-12 col-md-5 m-1">
                 <Card>
                     <Link to={`/hackers/${hacker.id}`}>
-                        <CardImg width="100%" src={hacker.pic} alt={hacker.name} />
-                        <CardImgOverlay>
-                            <CardTitle>{hacker.name}</CardTitle>
-                        </CardImgOverlay>
+                        {//<CardImg width="100%" src={hacker.pic} alt={hacker.name} />
+                        }
+                            <h2>{hacker.name}</h2>
                     </Link>
+                    <div>
+                        <h3>Competitive Percentile</h3>
+                        <div>
+                            <table>
+                                <tr>
+                                    <th>Topic</th>
+                                    <th>Percentile</th>
+                                </tr>
+                                <tr>
+                                    <td>Data Structures</td>
+                                    <td>{hacker.competitivePercentile.dataStructures}</td>
+                                </tr>
+                                <tr>
+                                    <td>Algorithms</td>
+                                    <td>{hacker.competitivePercentile.algorithms}</td>
+                                </tr>
+                                <tr>
+                                    <td>C++</td>
+                                    <td>{hacker.competitivePercentile.cpp}</td>
+                                </tr>
+                                <tr>
+                                    <td>Java</td>
+                                    <td>{hacker.competitivePercentile.java}</td>
+                                </tr>
+                                <tr>
+                                    <td>Python</td>
+                                    <td>{hacker.competitivePercentile.python}</td>
+                                </tr>
+                                <tr>
+                                    <td>HTML</td>
+                                    <td>{hacker.competitivePercentile.html}</td>
+                                </tr>
+                                <tr>
+                                    <td>JavaScript</td>
+                                    <td>{hacker.competitivePercentile.javascript}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </Card>
             </div>
         );
-    })
+    });
+    
 
     return(
         <div className="container-fluid">
             <Header />
             
-            <div className="row">
-                {hacker_list}
+            <div className="row align-items-center justify-content-center">
+                {loading
+                    ? <div>
+                        Loading...
+                    </div>
+                    : hacker_list
+                }
             </div>
         </div>
     );
